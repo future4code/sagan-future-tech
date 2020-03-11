@@ -14,9 +14,9 @@ class App extends Component {
     super();
     this.state = {
       mostraCabecalho: true,
-      mostraAdministracao: false,
+      mostraAdministracao: true,
       mostraCarrinho: false,
-      mostraProdutos: true,
+      mostraProdutos: false,
       mostraPesquisa: false,
       products: []
     };

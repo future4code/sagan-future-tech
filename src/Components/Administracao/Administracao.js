@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import axios from 'axios'
+
+const baseUrl = "https://us-central1-future-apis.cloudfunctions.net/"
 
 class Administracao extends Component {
   constructor() {

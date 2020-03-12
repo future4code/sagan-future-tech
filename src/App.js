@@ -34,9 +34,12 @@ constructor() {
 	mostraPrincipal: false,
 	mostraPesquisa: false,
 	products: [],
+	productsPesquisa: [],
 	arrayFiltrado: [],
 	ProdPrinci: '',
-	arrayDeCarrinho: []
+	arrayDeCarrinho: [],
+	inputMenor: "",
+	inputMaior: ""
 	};
 }
 
@@ -69,7 +72,8 @@ adicionarProdutoPrincipal = (indexId) => {
 	this.setState({
 	arrayFiltrado: arrayfilter,
 	mostraProdutos: false,
-	mostraPrincipal: true
+	mostraPrincipal: true,
+	mostraPesquisa: false
 	})
 }
 
@@ -83,12 +87,36 @@ adicionarProdutoNoCarrinho = (indexId) => {
 	})
 
 }
+inputMenor = (event) => {
+this.setState({
+	inputMenor: event.target.value
+})
+}
 
-
+inputMaior = (event) => {
+this.setState({
+	inputMaior: event.target.value
+})
+}
+pesquisaPorValor = () => {
+const arrayDeProdutosCopia = [...this.state.products]
+const valorMenor = (this.state.inputMenor.length > 0 ? this.state.inputMenor : 0)
+const valorMaior = (this.state.inputMaior.length > 0 ? this.state.inputMaior : 99999999999)
+const produtoPesquisa = arrayDeProdutosCopia.filter(produto =>{
+	return (produto.price >= valorMenor && produto.price <= valorMaior)
+})
+this.setState({
+	productsPesquisa: produtoPesquisa,
+	mostraProdutos: false,
+	mostraPesquisa: true,
+})
+}
 render() {
 const cabecalho = (
 	<div>
-	<p>cabecalho</p>
+		<input type="number" value={this.state.inputMenor} onChange={this.inputMenor} placeholder="Menor"></input>
+		<input type="number" value={this.state.inputMaior} onChange={this.inputMaior} placeholder="Maior"></input>
+		<button onClick={this.pesquisaPorValor}>Ordena</button>
 
 	</div>
 )
@@ -159,7 +187,6 @@ const produtos = (
 			price={element.price}
 			adicionaAoCarrinho={this.adicionarProdutoNoCarrinho}
 			/>
-
 		</div>
 		)
 	})}
@@ -167,7 +194,22 @@ const produtos = (
 )
 const pesquisa = (
 	<div>
-	<DisplayProdutos />
+	{this.state.productsPesquisa.map(element => {
+		return (
+		<div key={this.state.products.indexOf(element)}>
+			<DisplayProdutos
+			image={"https://semantic-ui.com/images/wireframe/image.png"}
+			id={element.id}
+			name={element.name}
+			shipping={element.shipping}
+			description={element.description}
+			paymentMethod={element.paymentMethod}
+			price={element.price}
+			mostraPrincipal={this.adicionarProdutoPrincipal}
+			/>
+		</div>
+		)
+	})}
 	</div>
 )
 return (

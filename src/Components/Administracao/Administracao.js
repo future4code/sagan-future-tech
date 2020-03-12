@@ -1,18 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 
-const baseUrl = "https://us-central1-future-apis.cloudfunctions.net/"
-let corpoDoCastro = {}
-
-//   {
-//   "name": "Produto",
-//   "description": "Esse é um produto muito legal!",
-//   "price": 10,
-//   "paymentMethod": "card",
-// "shipping": 5
-// }
-
-
 class Administracao extends Component {
   constructor() {
     super();
@@ -42,11 +30,24 @@ class Administracao extends Component {
         }
       }
     )
+    cadastraUsuario.then(response => {
+      alert("Produto criado com sucesso!")
+      this.setState({
+        inputNome: '',
+        inputDescricao: '',
+        inputPreco: '',
+        inputPagamento: '',
+        inputEnvio: ''
+      })
+    }).catch(error => {
+      alert("Algo deu errado. Tente novamente.")
+      console.log(error.response.data.message)
+    })
   }
-  
 
   lidaComImputNome = (event) => {
-    this.setState({ inputNome: event.target.value })
+    const novoValor = event.target.value
+    this.setState({ inputNome: novoValor })
   }
   lidaComImputDescricao = (event) => {
     this.setState({ inputDescricao: event.target.value })
@@ -64,13 +65,12 @@ class Administracao extends Component {
   render() {
     return (
       <div>
-
         <input type='text' onChange={this.lidaComImputNome} value={this.state.inputNome} placeholder='Nome' />
         <input type='text' onChange={this.lidaComImputDescricao} value={this.state.inputDescricao} placeholder='Descrição' />
         <input type='text' onChange={this.lidaComImputPreco} value={this.state.inputPreco} placeholder='Preço' />
         <input type='text' onChange={this.lidaComImputPagamento} value={this.state.inputPagamento} placeholder='Método de pagamento' />
         <input type='text' onChange={this.lidaComImputEnvio} value={this.state.inputEnvio} placeholder='Envio' />
-        <button onClick={this.cadastrarUsuario()}>Cadastrar Produtos</button>
+        <button onClick={this.cadastrarUsuario}>Cadastrar Produtos</button>
       </div>
     );
   }

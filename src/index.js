@@ -14,14 +14,15 @@ class App extends Component {
     super();
     this.state = {
       mostraCabecalho: true,
-      mostraAdministracao: false,
+      mostraAdministracao: false,  
       mostraCarrinho: false,
       mostraProdutos: true,
       mostraPrincipal: false,
       mostraPesquisa: false,
       products: [],
       arrayFiltrado: [],
-      ProdPrinci: ''
+      ProdPrinci: '',
+      arrayDeCarrinho: []
     };
   }
 
@@ -49,24 +50,26 @@ class App extends Component {
 
 
   adicionarProdutoPrincipal = (indexId) => {
+    const arrayfilter = [...this.state.products].filter(produto => {
+    return produto.id == indexId})
     this.setState({
-      prodPrinci: indexId,
+      arrayFiltrado: arrayfilter,
       mostraProdutos: false,
       mostraPrincipal: true
     })
-    console.log(indexId)
   }
 
-
-  filtraProdutoPrincipal = () => {
-    const arrayFilter = [...this.state.products]
-    arrayFilter.filter(produto => 
-      produto.id === this.state.prodPrinci
-      )
-      this.setState({
-        arrayFiltrado: arrayFilter
-      })
+  adicionarProdutoNoCarrinho = (indexId) => {
+    const arrayTemporario = [...this.state.arrayDeCarrinho]
+    arrayTemporario.push(indexId)
+    this.setState({
+      arrayDeCarrinho: arrayTemporario,
+      mostraPrincipal: false,
+      mostraCarrinho: true
+    })
+  
   }
+  
 
   render() {
   const cabecalho = (
@@ -82,20 +85,36 @@ class App extends Component {
     </div>
   )
   const carrinhoPrincipal = (
-    <div>
-      <CarrinhoPrincipal />
-    </div>
+    <div> 
+      
+    {this.state.arrayDeCarrinho.map(element => {
+      return (
+        <div key={this.state.products.indexOf(element)}>
+          <CarrinhoPrincipal
+            image={"https://semantic-ui.com/images/wireframe/image.png"}
+            id={element.id}
+            name={element.name}
+            shipping={element.shipping}
+            description={element.description}
+            paymentMethod={element.paymentMethod}
+            price={element.price}
+            adicionaAoCarrinho={this.adicionarProdutoNoCarrinho}
+          />
+
+        </div>
+      )
+    })}
+  </div>
   )
 
   const produtos = (
     <div>
       {this.state.products.map(element => {
         return (
-          <div>
+          <div key={this.state.products.indexOf(element)}>
             <DisplayProdutos
               image={"https://semantic-ui.com/images/wireframe/image.png"}
               id={element.id}
-              // key={this.state.products.indexOf(element)} ->BUGZINHO
               name={element.name}
               shipping={element.shipping}
               description={element.description}
@@ -111,21 +130,20 @@ class App extends Component {
   )
 
    const produtoPrincipal = (
-    <div>
+    <div> 
       
       {this.state.arrayFiltrado.map(element => {
         return (
-          <div>
+          <div key={this.state.products.indexOf(element)}>
             <ProdutoPrincipal
               image={"https://semantic-ui.com/images/wireframe/image.png"}
               id={element.id}
-              // key={this.state.products.indexOf(element)} ->BUGZINHO
               name={element.name}
               shipping={element.shipping}
               description={element.description}
               paymentMethod={element.paymentMethod}
               price={element.price}
-              mostraPrincipal={this.adicionarProdutoPrincipal}
+              adicionaAoCarrinho={this.adicionarProdutoNoCarrinho}
             />
 
           </div>
@@ -143,6 +161,7 @@ class App extends Component {
       {this.state.mostraCabecalho ? cabecalho : ""}
       {this.state.mostraAdministracao ? administracao : ""}
       {this.state.mostraCarrinho ? carrinhoPrincipal : ""}
+      {this.state.mostraPrincipal ? produtoPrincipal : ""} 
       {this.state.mostraProdutos ? produtos : ""}
       {this.state.mostraPesquisa ? pesquisa : ""}
     </div>

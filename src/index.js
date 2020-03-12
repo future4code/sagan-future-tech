@@ -14,9 +14,9 @@ class App extends Component {
     super();
     this.state = {
       mostraCabecalho: true,
-      mostraAdministracao: true,
+      mostraAdministracao: false,
       mostraCarrinho: false,
-      mostraProdutos: false,
+      mostraProdutos: true,
       mostraPesquisa: false,
       products: []
     };
@@ -79,6 +79,7 @@ class App extends Component {
               paymentMethod={element.paymentMethod}
               price={element.price}
             />
+
           </div>
         )
       })}

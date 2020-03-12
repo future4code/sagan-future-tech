@@ -11,7 +11,8 @@ class ProdutoPrincipal extends Component {
   render() {
     return (
       <div>
-        <p>Produto principal</p>
+     
+     
       </div>
     );
   }

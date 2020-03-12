@@ -8,28 +8,39 @@ class DisplayProdutos extends Component {
     };
   }
   
+  
+  
+
   render() {
     return (
-      <div>
-        <img src={this.props.image}/>
-        <p>
+       <div onClick={() => {this.props.mostraPrincipal(this.props.id)}}
+       id={this.props.id}>
+
+        {/* <img src={this.props.image}/>  */}
+        <p id={this.props.id}>
          id: {this.props.id}
         </p>
-        <p>
+
+        <p id={this.props.id}>
          nome: {this.props.name}
         </p>
-        <p>
+
+        <p id={this.props.id}> 
          entrega: {this.props.shipping}
         </p>
-        <p>
-         descrição: {this.props.description}
+
+        <p id={this.props.id}>
+         descrição:  {this.props.description}
         </p>
-        <p>
+
+        <p id={this.props.id}>
         pagamento:  {this.props.paymentMethod}
         </p>
-        <p>
+
+        <p id={this.props.id}>
          preço: {this.props.price}
         </p>
+        
         <hr />
       </div>
     );

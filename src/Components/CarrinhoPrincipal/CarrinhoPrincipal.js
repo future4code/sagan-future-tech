@@ -36,6 +36,9 @@ class CarrinhoPrincipal extends Component {
         <p id={this.props.id}>
          preço: {this.props.price}
         </p>
+        <p id={this.props.id}>
+         Quantidade: {this.props.qtd}
+        </p>
         
         <hr />
         <button>Endereço de Entrega</button>

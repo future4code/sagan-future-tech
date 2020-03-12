@@ -74,8 +74,8 @@ adicionarProdutoPrincipal = (indexId) => {
 }
 
 adicionarProdutoNoCarrinho = (indexId) => {
-	const arrayTemporario = [...this.state.arrayDeCarrinho]
-	arrayTemporario.push(indexId)
+	const arrayTemporario = [...this.state.products].filter(produto => {
+	return produto.id == indexId})
 	this.setState({
 	arrayDeCarrinho: arrayTemporario,
 	mostraPrincipal: false,

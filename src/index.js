@@ -17,8 +17,11 @@ class App extends Component {
       mostraAdministracao: false,
       mostraCarrinho: false,
       mostraProdutos: true,
+      mostraPrincipal: false,
       mostraPesquisa: false,
-      products: []
+      products: [],
+      arrayFiltrado: [],
+      ProdPrinci: ''
     };
   }
 
@@ -44,6 +47,26 @@ class App extends Component {
   //   console.log(response.data)
   // }
 
+
+  adicionarProdutoPrincipal = (indexId) => {
+    this.setState({
+      prodPrinci: indexId,
+      mostraProdutos: false,
+      mostraPrincipal: true
+    })
+    console.log(indexId)
+  }
+
+
+  filtraProdutoPrincipal = () => {
+    const arrayFilter = [...this.state.products]
+    arrayFilter.filter(produto => 
+      produto.id === this.state.prodPrinci
+      )
+      this.setState({
+        arrayFiltrado: arrayFilter
+      })
+  }
 
   render() {
   const cabecalho = (
@@ -78,6 +101,7 @@ class App extends Component {
               description={element.description}
               paymentMethod={element.paymentMethod}
               price={element.price}
+              mostraPrincipal={this.adicionarProdutoPrincipal}
             />
 
           </div>
@@ -86,9 +110,27 @@ class App extends Component {
     </div>
   )
 
-  const produtoPrincipal = (
+   const produtoPrincipal = (
     <div>
-      <ProdutoPrincipal />
+      
+      {this.state.arrayFiltrado.map(element => {
+        return (
+          <div>
+            <ProdutoPrincipal
+              image={"https://semantic-ui.com/images/wireframe/image.png"}
+              id={element.id}
+              // key={this.state.products.indexOf(element)} ->BUGZINHO
+              name={element.name}
+              shipping={element.shipping}
+              description={element.description}
+              paymentMethod={element.paymentMethod}
+              price={element.price}
+              mostraPrincipal={this.adicionarProdutoPrincipal}
+            />
+
+          </div>
+        )
+      })}
     </div>
   )
   const pesquisa = (

@@ -10,12 +10,14 @@ class ProdutoPrincipal extends Component {
 
   render() {
     return (
-      <div>
-     
-     
+
+       <div>
+       Oi
+        <hr />
       </div>
     );
   }
 }
+
 
 export default ProdutoPrincipal

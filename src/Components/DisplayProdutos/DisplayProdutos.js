@@ -8,36 +8,39 @@ class DisplayProdutos extends Component {
     };
   }
   
-  alert = (event) => {
-    alert(`teste ${event.target.id}`)
-  }
-
+  
+  
 
   render() {
     return (
-      <div >
+       <div onClick={() => {this.props.mostraPrincipal(this.props.id)}}
+       id={this.props.id}>
 
-        <img src={this.props.image}/> 
-        <p>
+        {/* <img src={this.props.image}/>  */}
+        <p id={this.props.id}>
          id: {this.props.id}
         </p>
-        <p>
+
+        <p id={this.props.id}>
          nome: {this.props.name}
         </p>
-        <p>
+
+        <p id={this.props.id}> 
          entrega: {this.props.shipping}
         </p>
-        <p>
+
+        <p id={this.props.id}>
          descrição:  {this.props.description}
         </p>
-        <p>
+
+        <p id={this.props.id}>
         pagamento:  {this.props.paymentMethod}
         </p>
-        <p>
+
+        <p id={this.props.id}>
          preço: {this.props.price}
         </p>
         
-      <button onClick={this.alert}>Ver Produto</button>
         <hr />
       </div>
     );

@@ -1,50 +1,56 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
-class DisplayProdutos extends Component {
-  constructor() {
-    super();
-    this.state = {
+const styles = {
+  card: {
+    maxWidth: 250,
+  },
+  media: {
+    height: 100,
+  },
+};
 
-    };
-  }
-  
-  
-  
-
-  render() {
-    return (
-       <div onClick={() => {this.props.mostraPrincipal(this.props.id)}}
-       id={this.props.id}>
-
-        {/* <img src={this.props.image}/>  */}
-        <p id={this.props.id}>
-         id: {this.props.id}
-        </p>
-
-        <p id={this.props.id}>
-         nome: {this.props.name}
-        </p>
-
-        <p id={this.props.id}> 
-         entrega: {this.props.shipping}
-        </p>
-
-        <p id={this.props.id}>
-         descrição:  {this.props.description}
-        </p>
-
-        <p id={this.props.id}>
-        pagamento:  {this.props.paymentMethod}
-        </p>
-
-        <p id={this.props.id}>
-         preço: {this.props.price}
-        </p>
-        
-        <hr />
-      </div>
-    );
-  }
+function MediaCard(props) {
+  const { classes } = props;
+  return (
+    <Card id={props.id} onClick={() => {props.mostraPrincipal(props.id)}} className={classes.card}>
+      <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          image={props.image}
+          title={props.name}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {props.name}
+          </Typography>
+          <Typography component="p">
+          R$ {props.price} - {props.description}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+      <Button size="small" color="primary">
+          Ver produto
+        </Button>
+      <Button onClick={() => {props.adicionaAoCarrinho(props.id)}} size="small" color="primary">
+          Adicionar ao carrinho
+        </Button>
+      </CardActions>
+    </Card>
+  );
 }
 
-export default DisplayProdutos
+MediaCard.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(MediaCard);

@@ -87,7 +87,7 @@ adicionarProdutoNoCarrinho = async (indexId) => {
 	let indexe = await this.encontrarOIndex(indexId)
 	const arrayDeProdutosCopia = [...this.state.products]
 	arrayDeProdutosCopia[indexe].carrinho =+ 1
-const arrayDeCarrinho = [...this.state.products].filter(produto => {
+const arrayDeCarrinho = arrayDeProdutosCopia.filter(produto => {
 return produto.carrinho > 0})
 const somaCarrinho = arrayDeCarrinho.map(item => item.price * item.carrinho).reduce((soma, subtotal) => subtotal + soma,0)
 const qtdCarrinho = arrayDeCarrinho.map(item => 1 * item.carrinho).reduce((soma, subtotal) => subtotal + soma,0)
@@ -212,8 +212,8 @@ const administracao = (
 )
 const carrinhoPrincipal = (
 	<div> 
-	<h3>Soma dos produtos no carrinho {this.state.somaCarrinho}</h3>
-	<h3>Quantidade de produtos no carrinho {this.state.qtdCarrinho}</h3>
+	<h3>Soma dos produtos no carrinho: R$ {this.state.somaCarrinho}</h3>
+	<h3>Quantidade de produtos no carrinho: {this.state.qtdCarrinho}</h3>
 	{this.state.arrayDeCarrinho.map(element => {
 	return (
 		<div key={this.state.products.indexOf(element)}>

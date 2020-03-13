@@ -54,12 +54,17 @@ capturaListaProdutos = () => {
 		const arraytemp = response.data.products
 		arraytemp.forEach((item, index, array) => {
 			item.carrinho = 0
+			item.image = (`https://i.picsum.photos/id/1/${this.gna()}${this.gna()}${this.gna()}/${this.gna()}${this.gna()}${this.gna()}.jpg`)
 		})
 	this.setState({ products: arraytemp })
 	}).catch((error) => {
 	console.log(error.message)
 	})
 } 
+
+gna = () => {
+	return (Math.floor(Math.random() * 9))
+}
 
 adicionarProdutoPrincipal = (indexId) => {
 	const arrayfilter = [...this.state.products].filter(produto => {
@@ -213,14 +218,14 @@ const carrinhoPrincipal = (
 	return (
 		<div key={this.state.products.indexOf(element)}>
 		<CarrinhoPrincipal
-			image={"https://semantic-ui.com/images/wireframe/image.png"}
+			image={element.image}
 			id={element.id}
 			name={element.name}
 			shipping={element.shipping}
 			description={element.description}
 			paymentMethod={element.paymentMethod}
 			price={element.price}
-			qtd={element.carrinho}
+			qtd={element.carrinho}		
 			adicionaAoCarrinho={this.adicionarProdutoNoCarrinho}
 			
 		/>
@@ -237,7 +242,7 @@ const produtos = (
 		return (
 		<div key={this.state.products.indexOf(element)}>
 			<DisplayProdutos
-			image={"https://semantic-ui.com/images/wireframe/image.png"}
+			image={element.image}
 			id={element.id}
 			name={element.name}
 			shipping={element.shipping}
@@ -245,6 +250,7 @@ const produtos = (
 			paymentMethod={element.paymentMethod}
 			price={element.price}
 			mostraPrincipal={this.adicionarProdutoPrincipal}
+			adicionaAoCarrinho={this.adicionarProdutoNoCarrinho}
 			/>
 		</div>
 		)
@@ -258,7 +264,7 @@ const produtos = (
 		return (
 		<div key={this.state.products.indexOf(element)}>
 			<ProdutoPrincipal
-			image={"https://semantic-ui.com/images/wireframe/image.png"}
+			image={element.image}
 			id={element.id}
 			name={element.name}
 			shipping={element.shipping}
@@ -278,7 +284,7 @@ const pesquisa = (
 		return (
 		<div key={this.state.products.indexOf(element)}>
 			<DisplayProdutos
-			image={"https://semantic-ui.com/images/wireframe/image.png"}
+			image={element.image}
 			id={element.id}
 			name={element.name}
 			shipping={element.shipping}
@@ -286,6 +292,7 @@ const pesquisa = (
 			paymentMethod={element.paymentMethod}
 			price={element.price}
 			mostraPrincipal={this.adicionarProdutoPrincipal}
+			adicionaAoCarrinho={this.adicionarProdutoNoCarrinho}
 			/>
 		</div>
 		)

@@ -10,6 +10,8 @@ import CarrinhoAtalho from './Components/CarrinhoAtalho/CarrinhoAtalho'
 import CarrinhoPrincipal from './Components/CarrinhoPrincipal/CarrinhoPrincipal'
 import DisplayProdutos from './Components/DisplayProdutos/DisplayProdutos'
 import ProdutoPrincipal from './Components/ProdutoPrincipal/ProdutoPrincipal'
+import Box from '@material-ui/core/Box';
+
 
 const baseUrl = "https://us-central1-future-apis.cloudfunctions.net/"
 
@@ -237,7 +239,7 @@ const carrinhoPrincipal = (
 )
 
 const produtos = (
-	<div>
+	<Box display="flex">
 	{this.state.products.map(element => {
 		return (
 		<div key={this.state.products.indexOf(element)}>
@@ -255,7 +257,7 @@ const produtos = (
 		</div>
 		)
 	})}
-	</div>
+	</Box>
 )
 
 	const produtoPrincipal = (
